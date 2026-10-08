@@ -1,0 +1,8 @@
+.swiper-button-next,
+.swiper-button-prev {
+  color: #212529 !important; /* Color dark de Bootstrap */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #212529 !important;
+}
