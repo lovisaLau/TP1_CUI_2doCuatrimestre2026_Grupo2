@@ -140,7 +140,7 @@ export const productos = [
     precio: 20000,
     imagen: remeraNeuquen,
     descripcion: "Remera de manga larga con cuello semi-alto confeccionada en tejido elastizado.",
-    stock: 11
+    stock: 1
   },
   {
     id: 15,
@@ -149,6 +149,6 @@ export const productos = [
     precio: 20000,
     imagen: remeraLaPampa,
     descripcion: "Remera negra oversize con una ilustración gráfica de estilo futurista en la espalda.",
-    stock: 16
+    stock: 0
   }
 ];

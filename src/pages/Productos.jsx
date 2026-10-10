@@ -7,16 +7,20 @@ export const Productos = () => {
   const [busqueda, setBusqueda] = useState('');
   const [orden, setOrden] = useState('defecto');
 
-  // Filtrado por nombre
+  // 1. Filtrado por nombre
   let productosFiltrados = (productos || []).filter((prod) =>
     prod.nombre ? prod.nombre.toLowerCase().includes(busqueda.toLowerCase()) : false
   );
 
-  // Ordenamiento
+  // 2. Ordenamiento (Nombre A-Z, Z-A y Precios Menor/Mayor)
   if (orden === 'az') {
     productosFiltrados = [...productosFiltrados].sort((a, b) => a.nombre.localeCompare(b.nombre));
   } else if (orden === 'za') {
     productosFiltrados = [...productosFiltrados].sort((a, b) => b.nombre.localeCompare(a.nombre));
+  } else if (orden === 'precio-menor') {
+    productosFiltrados = [...productosFiltrados].sort((a, b) => (a.precio || 20000) - (b.precio || 20000));
+  } else if (orden === 'precio-mayor') {
+    productosFiltrados = [...productosFiltrados].sort((a, b) => (b.precio || 20000) - (a.precio || 20000));
   }
 
   return (
@@ -47,6 +51,8 @@ export const Productos = () => {
             <option value="defecto">Por defecto</option>
             <option value="az">Nombre (A - Z)</option>
             <option value="za">Nombre (Z - A)</option>
+            <option value="precio-menor">Precio: Menor a Mayor</option>
+            <option value="precio-mayor">Precio: Mayor a Menor</option>
           </Form.Select>
         </Col>
       </Row>
@@ -54,8 +60,11 @@ export const Productos = () => {
       {/* Grilla de Productos */}
       <Row className="g-4">
         {productosFiltrados.length > 0 ? (
-          productosFiltrados.map((prod) => (
-            <ProductoCard key={prod.id} producto={prod} />
+          productosFiltrados.map((prod, index) => (
+            <ProductoCard 
+              key={prod.id || index} // 👈 Asegura una key válida incluso si falta prod.id
+              producto={prod} 
+            />
           ))
         ) : (
           <Col xs={12} className="text-center py-5">
